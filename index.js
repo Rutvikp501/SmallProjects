@@ -9,9 +9,15 @@ const DB_Conn = require('./src/config/DB_Conn')
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+const swaggerUI = require('swagger-ui-express');
+const YAML = require("yamljs");
 app.set("views", path.join("views"));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/src'));
+const swaggerDocument = YAML.load(path.join(__dirname, '/swagger.yaml'));
+app.use('/sgr', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+
 app.get('/',(req,res,next)=>{
     try {
         res.render('home')

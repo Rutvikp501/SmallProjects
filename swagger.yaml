@@ -26,10 +26,41 @@ paths:
         '401':
           description: Unauthorized
   
-  /api/Login:
+  /user/:
+    get:
+      tags:
+        - User API
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /user/login:
     post:
       tags:
-        - Home
+        - User API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Email:
+                  type: string
+                Password:
+                  type: string
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /user/register:
+    post:
+      tags:
+        - User API
       requestBody:
         required: true
         content:
@@ -39,6 +70,10 @@ paths:
               properties:
                 LoginID:
                   type: string
+                Name:
+                  type: string
+                Email:
+                  type: string
                 Password:
                   type: string
       responses:
@@ -46,6 +81,9 @@ paths:
           description: Success
         '400':
           description: Bad Request
+
+
+
 
   /mail/sendmail:
     post:
@@ -80,7 +118,7 @@ paths:
   /url/all:
     get:
       tags:
-        - url API
+        - URL API
       requestBody:
         required: true
         content:
@@ -103,7 +141,7 @@ paths:
   /url/short:
     post:
       tags:
-        - url API
+        - URL API
       requestBody:
         required: true
         content:
@@ -126,7 +164,7 @@ paths:
   /url/:urlId:
     get:
       tags:
-        - url API
+        - URL API
       requestBody:
         required: true
         content:
@@ -145,3 +183,4 @@ paths:
           description: Success
         '201':
           description: Something is wrong.
+

@@ -29,6 +29,7 @@ app.get('/',(req,res,next)=>{
 app.use('/mail',require('./src/Routes/mail.route'));
 app.use('/url',require('./src/Routes/url.route'));
 app.use('/heart',require('./src/Routes/heart.route'));
+app.use('/user',require('./src/Routes/user.route'));
 
 
 app.listen(Port,()=>{

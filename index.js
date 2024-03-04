@@ -1,4 +1,5 @@
 const express = require("express")
+const cors = require('cors');
 const app= express();
 const bodyParser = require('body-parser');
 const path = require('path')
@@ -7,13 +8,19 @@ const Port= process.env.PORT || 5011;
 const DB_URL= process.env.DBURL ;
 const DB_Conn = require('./src/config/DB_Conn')
 
+
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
+app.use(cors({ origin: true, credentials: true }));
+
 const swaggerUI = require('swagger-ui-express');
 const YAML = require("yamljs");
+
+
 app.set("views", path.join("views"));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/src'));
+
 const swaggerDocument = YAML.load(path.join(__dirname, '/swagger.yaml'));
 app.use('/sgr', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 

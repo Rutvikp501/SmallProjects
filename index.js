@@ -20,7 +20,8 @@ app.use('/sgr', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.get('/',(req,res,next)=>{
     try {
-        res.render('home')
+        // res.status(200).send("testing")
+        res.render('./home')
     } catch (error) {
         console.log(error);
     }

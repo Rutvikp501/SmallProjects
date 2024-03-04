@@ -82,6 +82,38 @@ paths:
         '400':
           description: Bad Request
 
+  /user/edit/{id}:
+    patch:
+      tags:
+        - User API
+      description: User
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                user_type:
+                  type: string
+
+      responses:
+        '200':
+          description: User Page
+        '401':
+          description: Unauthorized
+
 
 
 
@@ -161,10 +193,32 @@ paths:
         '201':
           description: Something is wrong.
 
-  /url/:urlId:
-    get:
+  # /url/{urlId}:
+  #   get:
+  #     tags:
+  #       - URL API
+  #    parameters:
+  #       - in: path
+  #         name: urlId
+  #         schema:
+  #           type: string
+
+  #     responses:
+  #       '200':
+  #         description: Success
+  #       '201':
+  #         description: Something is wrong.
+
+  /url/{urlId}:
+    patch:
       tags:
         - URL API
+      description: User
+      parameters:
+        - in: path
+          name: urlId
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -172,15 +226,17 @@ paths:
             schema:
               type: object
               properties:
-                subject:
+                username:
                   type: string
-                text:
+                email:
                   type: string
-                html:
+                password:
                   type: string
+                user_type:
+                  type: string
+
       responses:
         '200':
-          description: Success
-        '201':
-          description: Something is wrong.
-
+          description: User Page
+        '401':
+          description: Unauthorized

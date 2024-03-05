@@ -2,10 +2,11 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 
 const DB_URL= process.env.DBURL;
+const LDB_URL= process.env.LDBURL;
 const DB_name='smallproject'
 const Connect_DB =async()=>{
     try {
-        await mongoose.connect(DB_URL);
+        await mongoose.connect(LDB_URL);
         console.log('Database Connected...');
     } catch (error) {
         console.error("Error While connecting DB:", error);

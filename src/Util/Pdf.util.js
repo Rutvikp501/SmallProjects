@@ -7,7 +7,7 @@ async function generatePDF(filepath, report_name, ) {
         const browser = await puppeteer.launch({ headless: 'new' });
         const page = await browser.newPage();
         const templateContent = fs.readFileSync(filepath, 'utf-8');
-        const htmlContent = ejs.render(templateContent, {param:param, report_name: report_name, });
+        const htmlContent = ejs.render(templateContent, { report_name: report_name, });
         await page.setContent(htmlContent)
         const pdfBuffer = await page.pdf({
             format: "A3", margin: { top: '10px', bottom: '40px' },

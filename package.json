@@ -27,6 +27,7 @@
     "path": "^0.12.7",
     "pdfmake": "^0.2.9",
     "puppeteer": "^22.4.0",
+    "roboto-font": "^0.1.0",
     "shortid": "^2.2.16",
     "swagger-ui-express": "^5.0.0",
     "yamljs": "^0.3.0"

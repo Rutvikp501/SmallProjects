@@ -3,14 +3,15 @@ const PdfPrinter = require('pdfmake');
 const fs = require('fs');
 const path = require("path");
 const generatePDF = require("../Util/Pdf.util");
+
 exports.PDF_Creation = async(req, res, next) => {
     try {
-        let __dirname = "C:/uploads/Kshama_Sign.jpg"
-        let filePath = path.join(__dirname);
-        let image = fs.readFileSync(filePath,);
-        let imageBase = Buffer.from(image).toString('base64');
-        let signature = `data:image/jpeg;base64,${imageBase}`;
-        let client_name = "Kshama Mahakal"
+        // let __dirname = "C:/uploads/Kshama_Sign.jpg"
+        // let filePath = path.join(__dirname);
+        // let image = fs.readFileSync(filePath,);
+        // let imageBase = Buffer.from(image).toString('base64');
+        // let signature = `data:image/jpeg;base64,${imageBase}`;
+        // let client_name = "Kshama Mahakal"
         let fonts = {
             Roboto: {
                 normal: 'node_modules/roboto-font/fonts/Roboto/roboto-regular-webfont.ttf',
@@ -23,13 +24,13 @@ exports.PDF_Creation = async(req, res, next) => {
         let printer = new PdfPrinter(fonts);
         let dd = {
             content: [
-                // {
-                //     text: "GAINN FINTECH",
-                //     style: 'header',
-                //     alignment: 'center',
-                //     color: 'red',
-                //     margin: [0, 0, 0, 380]
-                // },
+                {
+                    text: "PDF Creation ",
+                    style: 'header',
+                    alignment: 'center',
+                    color: 'red',
+                    margin: [0, 0, 0, 380]
+                },
                 {
                     text: 'Annexure 2 (c)',
                     alignment: 'right'
@@ -77,10 +78,7 @@ exports.PDF_Creation = async(req, res, next) => {
         };
 
         let pdfDoc = printer.createPdfKitDocument(dd);
-        let sa = await this.upload_file_for_e_signature()
-        console.log(sa)
-        // this.upload_file_for_e_signature(pdfDoc,"5498fweghge",7678946057);
-        // Set the appropriate headers for PDF
+
         res.setHeader('Content-Type', 'application/pdf');
         res.setHeader('Content-Disposition', 'inline; filename=generated.pdf');
         // Pipe the PDF document directly to the response
@@ -102,14 +100,14 @@ exports.PDF_Creation_format = async (req, res) => {
            
             // if (param.fileType == "pdf") {
                 let filepath = "views/Pdf/PDF_Format.ejs";
-                const pdfBuffer = await generatePDF(filepath,"All Segment P&L", );
+                const pdfBuffer = await generatePDF(filepath, );
                 // if (req.body.rtype == "mail") {
                 //     let ans = await sendFileMailer("pdf", pdfBuffer, "All Segment P&L", clientDetails);
                 //     return res.send(  'mail sent sucessfully' );
                 // }
-                res.setHeader('Content-Disposition', 'attachment; filename=clients.pdf');
+                res.setHeader('Content-Disposition', 'attachment; filename=My_resume.pdf');
                 res.setHeader('Content-Type', 'application/pdf');
-                return res.end(pdfBuffer);
+                res.end(pdfBuffer);
             // }else {
             // let excelBuffer = await excelCreation("All Segment P&L", clientDetails, data, param);
             // if (req.body.rtype == "mail") {
@@ -128,10 +126,30 @@ exports.PDF_Creation_format = async (req, res) => {
        
         
     } catch (err) {
-        res.send({
-            ...Constants.status201(),
-            ...Constants.failure(),
-            ...Constants.info(err),
-        });
+        res.send('Error While creating  PDF' , err );
     }
 };
+
+exports.PDF_Mail = async (req, res) => {
+    try {
+        //console.log(data);
+        
+           
+            // if (param.fileType == "pdf") {
+                let filepath = "views/Pdf/PDF_Format.ejs";
+                const pdfBuffer = await generatePDF(filepath, );
+                    let ans = await sendFileMailer("pdf", pdfBuffer, "All Segment P&L", clientDetails);
+                    return res.send(  'mail sent sucessfully',ans );
+                
+                res.setHeader('Content-Disposition', 'attachment; filename=My_resume.pdf');
+                res.setHeader('Content-Type', 'application/pdf');
+                res.end(pdfBuffer);
+            
+           
+       
+        
+    } catch (err) {
+        res.send('Error While creating  PDF' , err );
+    }
+};
+

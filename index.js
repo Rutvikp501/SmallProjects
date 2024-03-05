@@ -3,10 +3,10 @@ const cors = require('cors');
 const app= express();
 const bodyParser = require('body-parser');
 const path = require('path')
-const sendFileMailer = require('./src/controllers/Sendmail')
 const Port= process.env.PORT || 5011;
 const DB_URL= process.env.DBURL ;
 const DB_Conn = require('./src/config/DB_Conn')
+require('dotenv').config()
 
 
 app.use(bodyParser.urlencoded({extended:false}));
@@ -38,6 +38,7 @@ app.use('/mail',require('./src/Routes/mail.route'));
 app.use('/url',require('./src/Routes/url.route'));
 app.use('/heart',require('./src/Routes/heart.route'));
 app.use('/user',require('./src/Routes/user.route'));
+app.use('/pdf',require('./src/Routes/pdf.route'));
 
 
 app.listen(Port,()=>{

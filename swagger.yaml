@@ -144,6 +144,33 @@ paths:
         '201':
           description: Something is wrong.
 
+  /mail/sendmsg:
+    post:
+      tags:
+        - Mail API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                To:
+                  type: array
+                  items:
+                    type: string
+                subject:
+                  type: string
+                text:
+                  type: string
+                html:
+                  type: string
+      responses:
+        '200':
+          description: Success
+        '201':
+          description: Something is wrong.
+
 
 
 

@@ -76,19 +76,8 @@ async function sendFileMailer(EmailData) {
             to: EmailData.To,
             subject: EmailData.subject,
             text:EmailData.text,
-            //html: '<b>Testing Send mail</b>',
-            attachments: [
-                {
-                    filename:'RUTVIK-PATIL-CV-.pdf',
-                    path:pdfPath,
-                    contentType:"application/pdf"
-                },
-                // {
-                //     filename:'image.jpg',
-                //     path:imagePath,
-                //     contentType:"image/jpg"
-                // },
-            ]
+            html:EmailData.html ,
+        
         
         };
         

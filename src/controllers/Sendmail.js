@@ -14,9 +14,8 @@ exports.send_File = async (req, res) => {
 };
 exports.Profile_Contact = async (req, res) => {
     let EmailData=req.body;
-    console.log(EmailData);
     try {
-      //  await Profile_Contact(EmailData);
+        await Profile_Contact(EmailData);
        res.status(200).send(`mail sucessfully sent to ${EmailData.To}`);
     } catch (error) {
         console.log(error);

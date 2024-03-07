@@ -39,6 +39,7 @@ app.use('/url',require('./src/Routes/url.route'));
 app.use('/heart',require('./src/Routes/heart.route'));
 app.use('/user',require('./src/Routes/user.route'));
 app.use('/pdf',require('./src/Routes/pdf.route'));
+app.use('/excel',require('./src/Routes/excel.route'));
 
 
 app.listen(Port,()=>{

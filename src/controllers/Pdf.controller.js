@@ -7,12 +7,12 @@ const { sendFileMailer } = require('../Util/Mail.util');
 
 exports.PDF_Creation = async(req, res, next) => {
     try {
-        // let __dirname = "C:/uploads/Kshama_Sign.jpg"
+        // let __dirname = "C:"
         // let filePath = path.join(__dirname);
         // let image = fs.readFileSync(filePath,);
         // let imageBase = Buffer.from(image).toString('base64');
         // let signature = `data:image/jpeg;base64,${imageBase}`;
-        // let client_name = "Kshama Mahakal"
+        let ceo_name =""
         let fonts = {
             Roboto: {
                 normal: 'node_modules/roboto-font/fonts/Roboto/roboto-regular-webfont.ttf',
@@ -24,58 +24,97 @@ exports.PDF_Creation = async(req, res, next) => {
 
         let printer = new PdfPrinter(fonts);
         let dd = {
-            content: [
-                {
-                    text: "PDF Creation ",
-                    style: 'header',
-                    alignment: 'center',
-                    color: 'red',
-                    margin: [0, 0, 0, 380]
-                },
-                {
-                    text: 'Annexure 2 (c)',
-                    alignment: 'right'
-                },
-                {
-                    text: 'Agreement between Member and Authorised Person',
-                    style: 'subheader',
-                    alignment: 'center',
-                    decoration: 'underline',
-                },
+                content: [
+                    // {
+                    //   text:`${name}` ,
+                    //   marginBottom: 10,
+                    //   style: {
+                    //     fontSize: 25,
+                    //     bold:true, 
+                    //   alignment: "center",
+                    //   },
+                    // },
+                    
+                    // {
+                    //   stack: [
+                    //     {
+                    //       text: "Annexure 2(b)(ii)",
+                    //       style: {
+                    //         alignment: "right",
+                    //         bold: true
+                    //       },
+                    //       marginBottom: 20
+                    //     },  
+                    //   ],
+                    // },
+          
+                    // {
+                    //   text: "UNDERTAKING",
+                    //   alignment: "center",
+                    //   marginBottom: 10
+                    // },
+          
+                    {
+                      columns: [
+                        {
+                          stack: [
+          
+                            { text: [{ text: ` Hello ${ceo_name},` }], bold: true  },
+          
+              
+                          ],
+                          alignment: 'left'
+                        },
+                       
+                      ],
+                      marginTop: 25,
+                      marginBottom: 30
+                    },
+                    {
+                      text:[
+                        "I am a Full-stack Developer. At Gainn Fintech Pvt Ltd, I have specialized in backend development, utilizing",
+                        { text: `Node.js`, bold: true },  
+                        "and",
+                        { text: `Express.js`, bold: true},
+                        ` to create and manage `,
+                        {text: `RESTful APIs.`, bold: true},
+                        `My expertise extends to database management, particularly in`,
+                        {text: `MongoDB,`, bold: true},
+                        `Furthermore, my proficiency in crafting responsive front-end pages with `,
+                        {text: `HTML, CSS, JavaScript, and EJS,`, bold: true},
+                        `and `,
+                        {text: `React`, bold: true},
+                        `underscores my commitment to user-centered design. Additionally, I've experience in tools like `,
+                        {text: `Gitlab/Github,  Postman.`, bold: true},
+                        `and`,
+                        {text: `Gitlab/Github,  Postman.`, bold: true},
+                      ],
+                      style: {
+                        fontSize: 12
+                      },
+                      marginBottom: 20
+                    },
 
-                {
-                    text: 'This agreement ("Agreement") is made and executed at Mumbai this 5 day of April, 2023',
-                    margin: [0, 20]
-                },
-                {
-                    text: 'Between:',
-                    style: 'subheader',
-                    bold: true,
-                },
-                {
-                    text: `Gainn Fintech Private Limited a body corporate, registered / incorporated under the provisions of Companies Act, 1956, having its Registered office at 915, Omkar the Summit Business Bay, Andheri Kurla Road, Adjacent to MovieMax, Andheri (East), Mumbai (MH) 400069., (hereinafter referred to as "Member" which expression shall, unless repugnant to the context or meaning thereof, be deemed to mean and include his / her heirs, legal legal representatives, the partners for the time being of the said firm, the survivor or survivors of them and the heirs, executors and administrators of such last survivor / its successors and assigns, as the case may be ) of the One Part; `,
-                    margin: [0, 20]
-                },
-                {
-                    text: 'And',
-                    alignment: 'center',
-                },
-                {
-                    text:`**KSHAMA SATISH MAHAKAL** an individual / a limited liability partnership / a body corporate registered / incorporated under the Partnership Act, 1932 /Limited Liability Partnership Act, 2008 / Companies Act, 1956 having it's registered office at B-17, Heena Park, Near Kala Talao, Beturkar Pada, kalyan West, Kalyan, Thane, Kalyan D.c., Maharashtra, 421301 (hereinafter called "AP" which expression shall, unless repugnant to the context or meaning thereof, be deemed to mean and include his / her heirs, legal representatives, executors and administrators / the partners for the time being of the said firm, the survivor or survivors of them and the heirs, executors and administrators of such last survivor / its successors and assigns, as the case may be) of the Other Part;`,
-                    margin: [0, 20]
-                },
-                {
-                    text: `Member and AP shall hereinafter be also jointly referred to as the "Parties" and severally as the "Party"`,
-                    margin: [0, 20]
-                },
-                {
-                    text: 'WHEREAS:',
-                    style: 'subheader',
-                    bold: true,
-                },
+                    
+                    {
+                      columns: [
+                        {
+                          stack: [
 
-
-            ]
+                            { text: [{ text: `Regards !`}], },
+                            { text: [{ text: `Rutvik Patil`}], },
+                            { text: [{ text: `8591575654`}], },
+              
+                          ],
+                          alignment: 'left'
+                        },
+                       
+                      ],
+                      marginTop: 25,
+                      marginBottom: 30
+                    },
+                    
+                  ],    
         };
 
         let pdfDoc = printer.createPdfKitDocument(dd);

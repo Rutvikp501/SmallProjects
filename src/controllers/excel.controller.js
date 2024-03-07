@@ -2,24 +2,18 @@
 const PdfPrinter = require('pdfmake');
 const fs = require('fs');
 const path = require("path");
-const generatePDF = require("../Util/Pdf.util");
+const excelCreation = require("../Util/excel.util");
 const { sendFileMailer } = require('../Util/Mail.util');
 
-exports.PDF_Creation_format = async (req, res) => {
-
+exports.Excel_Creation_format = async (req, res) => {
     try {
-        let filepath = "views/Pdf/PDF_Format.ejs";
-        let excelBuffer = await excelCreation(filepath);
-
-        // Send the PDF as an attachment via email
-        let ans = await sendFileMailer("xlsx", excelBuffer, EmailData);
-        // Return a success message to the client
-        return res.status(200).send(`Mail sent successfully to: ${EmailData.To}. Response: ${ans}`);
-
-    } catch (err) {
-        // Handle errors properly
-        console.error('Error while creating PDF or sending email:', err);
-        return res.status(500).send('Error while creating PDF or sending email.');
+        const buffer = await excelCreation(req.params.param); // Pass necessary parameters if needed
+        // Set appropriate headers and send the buffer as the response
+        res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        res.setHeader('Content-Disposition', 'attachment; filename="TEST.xlsx"');
+        res.send(buffer);
+    } catch (error) {
+        console.error("Error generating excel:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-
 };

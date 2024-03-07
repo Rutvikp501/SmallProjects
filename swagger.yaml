@@ -117,6 +117,88 @@ paths:
 
 
 
+  # /url/all:
+  #   get:
+  #     tags:
+  #       - URL API
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               subject:
+  #                 type: string
+  #               text:
+  #                 type: string
+  #               html:
+  #                 type: string
+  #     responses:
+  #       '200':
+  #         description: Success
+  #       '201':
+  #         description: Something is wrong.
+
+  # /url/short:
+  #   post:
+  #     tags:
+  #       - URL API
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               subject:
+  #                 type: string
+  #               text:
+  #                 type: string
+  #               html:
+  #                 type: string
+  #     responses:
+  #       '200':
+  #         description: Success
+  #       '201':
+  #         description: Something is wrong.
+
+  #       description: Something is wrong.
+
+  # /url/{urlId}:
+  #   patch:
+  #     tags:
+  #       - URL API
+  #     description: User
+  #     parameters:
+  #       - in: path
+  #         name: urlId
+  #         schema:
+  #           type: string
+  #     requestBody:
+  #       required: true
+  #       content:
+  #         application/json:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               username:
+  #                 type: string
+  #               email:
+  #                 type: string
+  #               password:
+  #                 type: string
+  #               user_type:
+  #                 type: string
+
+  #     responses:
+  #       '200':
+  #         description: User Page
+  #       '401':
+  #         description: Unauthorized
+
+
+
   /mail/sendmail:
     post:
       tags:
@@ -172,98 +254,35 @@ paths:
           description: Something is wrong.
 
 
-
-
-  /url/all:
+/pdf/create:
     get:
       tags:
-        - URL API
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                subject:
-                  type: string
-                text:
-                  type: string
-                html:
-                  type: string
+        - PDF API
       responses:
         '200':
           description: Success
-        '201':
-          description: Something is wrong.
+        '400':
+          description: Bad Request
 
-  /url/short:
-    post:
+/pdf/ejsformat:
+    get:
       tags:
-        - URL API
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                subject:
-                  type: string
-                text:
-                  type: string
-                html:
-                  type: string
+        - PDF API
       responses:
         '200':
           description: Success
-        '201':
-          description: Something is wrong.
+        '400':
+          description: Bad Request
 
-  # /url/{urlId}:
-  #   get:
-  #     tags:
-  #       - URL API
-  #    parameters:
-  #       - in: path
-  #         name: urlId
-  #         schema:
-  #           type: string
-
-  #     responses:
-  #       '200':
-  #         description: Success
-  #       '201':
-  #         description: Something is wrong.
-
-  /url/{urlId}:
-    patch:
+/pdf/mailpdf:
+    get:
       tags:
-        - URL API
-      description: User
-      parameters:
-        - in: path
-          name: urlId
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                username:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
-                user_type:
-                  type: string
-
+        - PDF API
       responses:
         '200':
-          description: User Page
-        '401':
-          description: Unauthorized
+          description: Success
+        '400':
+          description: Bad Request
+
+
+    

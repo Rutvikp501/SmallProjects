@@ -33,6 +33,14 @@ app.get('/',(req,res,next)=>{
         console.log(error);
     }
 })
+app.get('/resume',(req,res,next)=>{
+    try {
+        // res.status(200).send("testing")
+        res.render('./PDF/PDF_format')
+    } catch (error) {
+        console.log(error);
+    }
+})
 
 app.use('/mail',require('./src/Routes/mail.route'));
 app.use('/url',require('./src/Routes/url.route'));

@@ -1,5 +1,5 @@
-
-const Sendmail = require('../controllers/Sendmail');
+const AddTwoNumbers2 = require('../Util/leetcode/Easy/AddTwoNumbers2');
+const AddTwoNumbers2 = require('../Util/leetcode/Easy/Add');
 
 const router = require('express').Router();
 

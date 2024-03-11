@@ -3,7 +3,7 @@ const PdfPrinter = require('pdfmake');
 const fs = require('fs');
 const path = require("path");
 const generatePDF = require("../Util/Pdf.util");
-const { sendFileMailer } = require('../Util/Mail.util');
+const { sendFileMailer,sendFile } = require('../Util/Mail.util');
 
 exports.PDF_Creation = async(req, res, next) => {
     try {
@@ -164,6 +164,24 @@ exports.PDF_Creation_EJS_format = async (req, res) => {
 };
 
 
+exports.sendFile = async (req, res) => {
+    let EmailData = req.body;
+    try {
+        let filepath = "views/Pdf/PDF_Format.ejs";
+        const pdfBuffer = await generatePDF(filepath);
+
+        // Send the PDF as an attachment via email
+        // let ans = await sendFileMailer("pdf", pdfBuffer, EmailData);
+        let ans = await sendFile(EmailData);
+        // Return a success message to the client
+        return res.status(200).send(`Mail sent successfully to: ${EmailData.email}. Response: ${ans}`);
+
+    } catch (err) {
+        // Handle errors properly
+        console.error('Error while creating PDF or sending email:', err);
+        return res.status(500).send('Error while creating PDF or sending email.');
+    }
+};
 exports.PDF_Mail = async (req, res) => {
     let EmailData = req.body;
     try {
@@ -171,7 +189,7 @@ exports.PDF_Mail = async (req, res) => {
         const pdfBuffer = await generatePDF(filepath);
 
         // Send the PDF as an attachment via email
-        let ans = await sendFileMailer("pdf", pdfBuffer, EmailData);
+         let ans = await sendFileMailer("pdf", pdfBuffer, EmailData);
         // Return a success message to the client
         return res.status(200).send(`Mail sent successfully to: ${EmailData.To}. Response: ${ans}`);
 

@@ -254,7 +254,7 @@ paths:
           description: Something is wrong.
 
 
-/pdf/create:
+  /pdf/create:
     get:
       tags:
         - PDF API
@@ -264,7 +264,7 @@ paths:
         '400':
           description: Bad Request
 
-/pdf/ejsformat:
+  /pdf/ejsformat:
     get:
       tags:
         - PDF API
@@ -274,10 +274,32 @@ paths:
         '400':
           description: Bad Request
 
-/pdf/mailpdf:
+  /pdf/mailpdf:
     get:
       tags:
         - PDF API
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+
+  /pdf/sendpdf:
+    post:
+      tags:
+        - PDF API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
       responses:
         '200':
           description: Success

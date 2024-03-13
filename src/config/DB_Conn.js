@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-const DB_URL= process.env.DBURL;
-const LDB_URL= process.env.LDBURL;
+// const DB_URL= process.env.DBURL;
+const DB_URL= 'mongodb://0.0.0.0:27017';
 const DB_name='smallproject'
 const Connect_DB =async()=>{
     try {

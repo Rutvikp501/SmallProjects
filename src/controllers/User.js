@@ -88,3 +88,9 @@ exports.Register = async (req, res) => {
         res.send("Error...");
     }
 };
+exports.Edit = async (req, res) => {
+ 
+};
+exports.update = async (req, res) => {
+
+};

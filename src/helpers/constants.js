@@ -26,26 +26,7 @@ class Constants {
   static status409() {
     return { status: 409 };
   }
-  static info(data = "") {
-    if (data === "") {
-      return {
-        error: "",
-        message: "",
-      };
-    }
 
-    if (data.length === 0) {
-      return {
-        error: "",
-        message: "No records found",
-      };
-    } else {
-      return {
-        error: "An error has occurred",
-        message: data,
-      };
-    }
-  }
   static message(message = "") {
     if (typeof message === "string" || message instanceof String) {
       return {

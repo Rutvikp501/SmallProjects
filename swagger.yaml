@@ -306,5 +306,47 @@ paths:
         '400':
           description: Bad Request
 
+  /salary/calculateNewSalary:
+    post:
+      tags:
+        - Salary API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currentSalary:
+                  type: number
+                hikePercentage:
+                  type: number
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
+  /salary/calculateHikePercentage:
+    post:
+      tags:
+        - Salary API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currentSalary:
+                  type: number
+                newSalary:
+                  type: number
+      responses:
+        '200':
+          description: Success
+        '400':
+          description: Bad Request
+
 
     

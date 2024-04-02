@@ -88,9 +88,67 @@ exports.Register = async (req, res) => {
         res.send("Error...");
     }
 };
-exports.Edit = async (req, res) => {
- 
-};
-exports.update = async (req, res) => {
 
+
+exports.Edit = async (req, res) => {
+    const { id } = request.body;
+    try {
+      const result = await usermodel.findById(id);
+      response.send({
+        status: "success",
+        data: result,
+      });
+    } catch (error) {
+      console.log(error);
+    }
 };
+
+
+exports.Update = async (req, res) => {
+    const {Password, Name , Email }=req.body
+    const getExistingUser = await usermodel.find({ Email: Email });   
+    const getExistingloginID = await usermodel.find({ LoginID: LoginID });   
+    // console.log(getExistingUser);
+    const valid = validatePassword(Password)
+    if(valid){
+        return res.status(400).send({message:valid[0]})
+    }
+    try{
+        if (getExistingloginID!=""){
+            return res.send({ status: "failed", message: "Choose different user Id.." });
+        }else{
+        if (getExistingUser != "") {
+            return res.send({ status: "failed", message: "Email already exist." });
+          }else{
+                // var Encpass = Enc_Dec.EncryptPass(Password);
+                const user = new usermodel({LoginID:LoginID,
+                    Password:Password,
+                    Name:Name,
+                    Email:Email})//the password from the body and hashed password is different
+                await user.save();
+                res.send("User Updated Successfully");          
+            }
+        }
+    
+    }catch(err){
+        console.log(err);
+        res.send("Error...");
+    }
+};
+
+exports.Logout = async (req, res) => {
+    if (req.cookies) {
+        Object.keys(req.cookies).forEach((cookie) => {
+            res.clearCookie(cookie);
+        });
+    }
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Error destroying session:', err);
+        } 
+        else {
+            res.send('Logged Out');
+        }
+    });
+}
+

@@ -15,6 +15,7 @@ app.use(cors({ origin: true, credentials: true }));
 
 const swaggerUI = require('swagger-ui-express');
 const YAML = require("yamljs");
+const { startJobs ,specific_times} = require("./src/controllers/cron.controller");
 
 
 app.set("views", path.join("views"));
@@ -48,7 +49,10 @@ app.use('/heart',require('./src/Routes/heart.route'));
 app.use('/user',require('./src/Routes/user.route'));
 app.use('/pdf',require('./src/Routes/pdf.route'));
 app.use('/excel',require('./src/Routes/excel.route'));
+app.use('/salary',require('./src/Routes/Salary.route'));
 
+// startJobs()
+// specific_times()
 
 app.listen(Port,()=>{
     try {

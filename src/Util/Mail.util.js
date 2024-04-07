@@ -93,6 +93,42 @@ async function Profile_Contact(EmailData) {
     return info;
 };
 
+async function YES_NO(EmailData) {
+    const data = EmailData
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        auth: {
+            user: process.env.RUTVIK,
+            pass: process.env.RAPP_PASS
+            // user: process.env.USERS,
+            // pass: process.env.APP_PASS
+        },
+        tls: { rejectUnauthorized: false },
+
+        debug: true
+    });
+
+    const mailOptions = {
+        from: {
+            name: 'Rutvik Patil',
+            address: process.env.USERS
+        },
+        to: data.To,
+        subject: data.subject,
+        text: data.text,
+        html: data.html,
+
+
+    };
+
+    // console.log(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    // console.log(info)
+    return info;
+};
+
 async function sendFile( EmailData) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -186,4 +222,4 @@ async function sendFileMailer(extentionType, buffer, EmailData) {
     return info;
 }
 
-module.exports = { sendMailer, Profile_Contact, sendFileMailer ,sendFile};
+module.exports = { sendMailer, Profile_Contact, sendFileMailer ,sendFile,YES_NO};

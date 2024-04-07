@@ -9,7 +9,15 @@ router.get('/',(req,res,next)=>{
     }
 })
 
-router.get('/click',(req,res,next)=>{
+router.get('/clickme',(req,res,next)=>{
+    try {
+        res.render('Ejs/heart.ejs')
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+router.get('/clickme',(req,res,next)=>{
     try {
         res.render('Ejs/heart.ejs')
     } catch (error) {

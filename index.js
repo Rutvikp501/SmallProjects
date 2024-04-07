@@ -43,9 +43,10 @@ app.get('/resume',(req,res,next)=>{
     }
 })
 
+app.use('/heart',require('./src/Routes/heart.route'));
+app.use('/yes',require('./src/Routes/yes_no.route'));
 app.use('/mail',require('./src/Routes/mail.route'));
 app.use('/url',require('./src/Routes/url.route'));
-app.use('/heart',require('./src/Routes/heart.route'));
 app.use('/user',require('./src/Routes/user.route'));
 app.use('/pdf',require('./src/Routes/pdf.route'));
 app.use('/excel',require('./src/Routes/excel.route'));

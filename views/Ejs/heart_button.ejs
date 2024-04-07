@@ -78,7 +78,8 @@
 </head>
 
  <body>
-   <div style="text-align: center;">
+  <%- include('../includes/navbar.ejs') %>
+   <div style="text-align: center;" style="margin-top: 10%;">
 
       <h1>Hi Sweety </h1>
       <h3>i've a small Surprise for you just click the heart if you love Me..</h3>
@@ -89,7 +90,7 @@
    </div>
    <script>
       function redirectToAnotherPage() {
-          window.location.href = "/heart/click"; // Change the URL to the desired page
+          window.location.href = "/heart/clickme"; // Change the URL to the desired page
       }
   </script>
 </body> 

@@ -51,6 +51,8 @@ app.use('/user',require('./src/Routes/user.route'));
 app.use('/pdf',require('./src/Routes/pdf.route'));
 app.use('/excel',require('./src/Routes/excel.route'));
 app.use('/salary',require('./src/Routes/Salary.route'));
+app.use('/csv_json',require('./src/Routes/CSV_Json.route'));
+app.use('/excel_Data',require('./src/Routes/ExcelData_DB.route'));
 
 // startJobs()
 // specific_times()

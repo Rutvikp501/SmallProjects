@@ -37,7 +37,6 @@ exports.Login = async (req, res) => {
                     let keyToken= jwt.sign({userId:user[0]._id},token)//setting up a token using the '_id' in user model
                     data={
                         keyToken:keyToken,
-                        LoginID:user[0].LoginID,
                         Name:user[0].Name,
                         Email:user[0].Email
                     }
@@ -56,32 +55,28 @@ exports.Login = async (req, res) => {
     }
 };
 exports.Register = async (req, res) => {
-    const {LoginID, Name , Email ,Password }=req.body
-    const getExistingUser = await usermodel.find({ Email: Email });   
-    const getExistingloginID = await usermodel.find({ LoginID: LoginID });   
+    const { Name , Email ,Password }=req.body
+    const getExistingUser = await usermodel.find({ Email: Email });      
     console.log(req.body);
     // const valid = validatePassword(Password)
     // if(valid){
     //     return res.status(400).send({message:valid[0]})
     // }
     try{
-        if (getExistingloginID!=""){
-            return res.send({ status: "failed", message: "Choose different user Id.." });
-        }else{
+
         if (getExistingUser != "") {
             return res.send({ status: "failed", message: "Email already exist." });
           }else{
             // console.log("Password",Password);
             //     var Encpass = Enc_Dec.EncryptPass(Password);
                 const user = new usermodel({
-                    LoginID:LoginID,
                     Password:Password,
                     Name:Name,
                     Email:Email})//the password from the body and hashed password is different
                 await user.save();
                 res.send("User Registered Successfully");          
             }
-        }
+       
     
     }catch(err){
         console.log(err);

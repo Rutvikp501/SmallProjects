@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to JSON Converter</title>
+</head>
+<body>
+    <h1>CSV to JSON Converter</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="csvfile" accept=".csv">
+        <button type="submit">Upload CSV</button>
+    </form>
+    <div id="jsonData"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('csvfile', this.csvfile.files[0]);
+
+            try {
+                const response = await fetch('http://localhost:5011/csv_json/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                //const result = await response.text();
+
+                if (!response.ok) {
+                    throw new Error('Failed to upload file');
+                }
+
+                const jsonData = await response.json();
+                displayJSON(jsonData);
+            } catch (error) {
+                console.error(error);
+            }
+        });
+
+        function displayJSON(jsonData) {
+            const jsonDataDiv = document.getElementById('jsonData');
+            jsonDataDiv.innerHTML = '<h2>Converted JSON:</h2>';
+            const preElement = document.createElement('pre');
+            preElement.textContent = JSON.stringify(jsonData, null, 2);
+            jsonDataDiv.appendChild(preElement);
+        }
+    </script>
+</body>
+</html>

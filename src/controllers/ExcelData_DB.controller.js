@@ -18,7 +18,7 @@ exports.GetAllProduct = async (req, res) => {
         console.log(error);
     }
 };
-exports.ShowAllProduct = async (req, res) => {
+exports.ShowAllExcelData = async (req, res) => {
 
     try {
         const Product = await Productmodel.find();
@@ -37,7 +37,7 @@ exports.ShowAllProduct = async (req, res) => {
                     return 0; 
                 }
             });
-            res.render("EJS/AllProducts", { data: Product });
+            res.render("EJS/AllExcelData", { data: Product });
         } else {
             res.status(200).send("Dont have Products To Show...")
         }

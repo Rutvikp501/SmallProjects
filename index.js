@@ -53,6 +53,7 @@ app.use('/excel',require('./src/Routes/excel.route'));
 app.use('/salary',require('./src/Routes/Salary.route'));
 app.use('/csv_json',require('./src/Routes/CSV_Json.route'));
 app.use('/excel_Data',require('./src/Routes/ExcelData_DB.route'));
+app.use('/json_excel',require('./src/Routes/Json_Excel.route'));
 
 // startJobs()
 // specific_times()

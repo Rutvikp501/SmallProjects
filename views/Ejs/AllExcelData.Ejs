@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product List</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+    }
+</style>
+</head>
+<body>
+
+<input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for products...">
+
+<table id="productTable">
+    <thead>
+        <tr id="tableHeaders">
+            <!-- Table headers will be populated here dynamically -->
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be populated here -->
+    </tbody>
+</table>
+
+
+<%  const jsonData = JSON.stringify(data) ;%>
+<script>
+ const jsonData = <%= jsonData %>;
+ console.log(jsonData);
+    // Get the JSON data passed from the server
+    // const jsonData = /* Paste the JSON data here */;
+    // const jsonData = <%= JSON.stringify(data) %>;
+    // console.log(jsonData);
+    // Function to populate the table headers
+    function populateTableHeaders(data) {
+        console.log("populateTableHeaders");
+        const tableHeadersRow = document.querySelector('#tableHeaders');
+        tableHeadersRow.innerHTML = '';
+
+        // Get the keys from the first item in the JSON data
+        const keys = Object.keys(data[0]);
+
+        // Populate the table headers dynamically
+        keys.forEach(key => {
+            const th = document.createElement('th');
+            th.textContent = key;
+            tableHeadersRow.appendChild(th);
+        });
+    }
+
+    // Function to populate the table
+    function populateTable(data) {
+        console.log("populateTable");
+        const tableBody = document.querySelector('#productTable tbody');
+        tableBody.innerHTML = '';
+
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            // Populate table cells dynamically based on keys
+            Object.keys(item).forEach(key => {
+                const cell = document.createElement('td');
+                cell.textContent = item[key];
+                row.appendChild(cell);
+            });
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Function to filter table rows based on search input
+    function searchTable() {
+        const input = document.getElementById('searchInput').value.toUpperCase();
+        const table = document.getElementById('productTable');
+        const rows = table.getElementsByTagName('tr');
+
+        for (let i = 0; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            let found = false;
+
+            for (let j = 0; j < cells.length; j++) {
+                const cell = cells[j];
+                if (cell) {
+                    const textValue = cell.textContent || cell.innerText;
+                    if (textValue.toUpperCase().indexOf(input) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (found) {
+                rows[i].style.display = '';
+            } else {
+                rows[i].style.display = 'none';
+            }
+        }
+    }
+
+    // Initial population of the table headers and table data
+    populateTableHeaders(jsonData);
+    populateTable(jsonData);
+</script>
+
+</body>
+</html>

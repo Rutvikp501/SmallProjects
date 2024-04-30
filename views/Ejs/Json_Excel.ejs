@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON to Excel Converter</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+  }
+
+  h2 {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  #container {
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 80px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 500px;
+    background-color: lightgrey;
+    box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.1);
+    resize: vertical;
+    border: none;
+    outline: none;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+</head>
+<body>
+
+<div id="container">
+  <h2>JSON to Excel Converter</h2>
+
+  <textarea id="jsonData" rows="10" cols="50"></textarea>
+  <button onclick="convertToExcel()">Convert to Excel</button>
+</div>
+
+<script>
+function convertToExcel() {
+  // Get JSON data from textarea
+  var jsonDataStr = document.getElementById('jsonData').value;
+  var jsonData = JSON.parse(jsonDataStr);
+
+  // Convert JSON to Excel workbook
+  var workbook = XLSX.utils.book_new();
+  var worksheet = XLSX.utils.json_to_sheet(jsonData);
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+  // Save the workbook as an Excel file
+  function s2ab(s) {
+    var buf = new ArrayBuffer(s.length);
+    var view = new Uint8Array(buf);
+    for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+  }
+
+  function saveWorkbook(workbook, filename) {
+    var wbout = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+    saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), filename);
+  }
+
+  saveWorkbook(workbook, "output.xlsx");
+}
+</script>
+
+</body>
+</html>

@@ -1,8 +1,9 @@
 const fs = require('fs');
-const csv = require('csv-parser');
+const csvParser = require('csv-parser');
+const streamifier = require('streamifier');
 const multer = require('multer');
 const path = require('path')
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 const cron = require("node-cron");
 
 const directory = 'uploads';
@@ -46,17 +47,19 @@ exports.CSV_Json = async (req, res, next) => {
             return res.status(400).send('No file uploaded.');
         }
         const results = [];
-        fs.createReadStream(req.file.path)
-            .pipe(csv())
+        const bufferString = req.file.buffer.toString(); // Convert buffer to string
+        streamifier.createReadStream(bufferString)
+            .pipe(csvParser())
             .on('data', (data) => results.push(data))
             .on('end', () => {
                 res.json(results);
-               // console.log(results);
             });
+        
+        // Example end
     } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
     }
-}
+};
 
 // module.exports = deleteFiles;

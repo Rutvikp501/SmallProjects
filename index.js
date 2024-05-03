@@ -34,6 +34,7 @@ app.get('/',(req,res,next)=>{
         console.log(error);
     }
 })
+
 app.get('/resume',(req,res,next)=>{
     try {
         // res.status(200).send("testing")

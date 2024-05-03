@@ -71,12 +71,13 @@
 <body>
     <h1>CSV to JSON Converter</h1>
     <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" name="csvfile" accept=".csv">
+        <input type="file" id="csvfile" name="csvfile" accept=".csv">
         <button type="submit">Upload CSV</button>
     </form>
     <div id="jsonData"></div>
 
     <script>
+        // document.getElementById('uploadForm').addEventListener('submit', async function(event) {
         document.getElementById('uploadForm').addEventListener('submit', async function(event) {
             event.preventDefault();
             const formData = new FormData();

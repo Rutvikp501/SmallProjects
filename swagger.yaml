@@ -68,8 +68,6 @@ paths:
             schema:
               type: object
               properties:
-                LoginID:
-                  type: string
                 Name:
                   type: string
                 Email:
@@ -82,7 +80,7 @@ paths:
         '400':
           description: Bad Request
 
-  /user/edit/{id}:
+  /user/update/{id}:
     patch:
       tags:
         - User API
@@ -99,14 +97,13 @@ paths:
             schema:
               type: object
               properties:
-                username:
+                Name:
                   type: string
-                email:
+                Email:
                   type: string
-                password:
+                Password:
                   type: string
-                user_type:
-                  type: string
+
 
       responses:
         '200':
@@ -114,6 +111,24 @@ paths:
         '401':
           description: Unauthorized
 
+  /user/delete/{id}:
+    delete:
+      tags:
+        - User API
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: ID of the blog User to delete.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+        '404':
+          description: Blog post not found
+        '500':
+          description: Internal server error
 
 
 

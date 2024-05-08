@@ -99,35 +99,62 @@ exports.Edit = async (req, res) => {
 };
 
 
+
+
 exports.Update = async (req, res) => {
     const {Password, Name , Email }=req.body
     const getExistingUser = await usermodel.find({ Email: Email });   
-    const getExistingloginID = await usermodel.find({ LoginID: LoginID });   
-    // console.log(getExistingUser);
-    const valid = validatePassword(Password)
-    if(valid){
-        return res.status(400).send({message:valid[0]})
+    let User = await usermodel.findById(req.params.id); 
+    if (req.body.Password != '' ){
+        const valid = validatePassword(Password)
+        if(valid){
+            return res.status(400).send({message:valid[0]})
+        }
     }
+
     try{
-        if (getExistingloginID!=""){
-            return res.send({ status: "failed", message: "Choose different user Id.." });
-        }else{
+
         if (getExistingUser != "") {
             return res.send({ status: "failed", message: "Email already exist." });
           }else{
-                // var Encpass = Enc_Dec.EncryptPass(Password);
-                const user = new usermodel({LoginID:LoginID,
-                    Password:Password,
-                    Name:Name,
-                    Email:Email})//the password from the body and hashed password is different
-                await user.save();
-                res.send("User Updated Successfully");          
+            if (!User) {
+                return res.status(404).json({ message: 'User not found' });
             }
-        }
+    
+            if (req.body.Name != '') {
+                User.Name = req.body.Name;
+            }
+            if (req.body.Password != '') {
+                User.Password = req.body.Password;
+            }
+            if (req.body.Email != '') {
+                User.Email = req.body.Email;
+            }
+                // var Encpass = Enc_Dec.EncryptPass(Password);
+                const user =  await User.save();
+                res.status(200).json({ message: 'User Updated Successfully :', user});      
+            }
+        
     
     }catch(err){
         console.log(err);
         res.send("Error...");
+    }
+};
+
+exports.DeleteUser = async (req, res) => {
+    console.log(req.params.id);
+    try {
+        let User = await usermodel.findById(req.params.id);
+        console.log(User); // Check what User object is returned
+        if (!User) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        let delete1 = await usermodel.findByIdAndDelete({_id:req.params.id});
+        res.status(200).json({ message: 'User deleted' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
     }
 };
 

@@ -4,6 +4,7 @@ const router = require('express').Router();
 
 
 router.get('/',User.GetAllUser)
+router.post('/getSearchedUser',User.GetSearchedUser)
 router.post('/login',User.Login)
 router.post('/register',User.Register)
 router.post('/register',User.Edit)

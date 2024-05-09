@@ -21,7 +21,27 @@ exports.GetAllUser = async (req, res) => {
         console.log(error);
     }
 };
+exports.GetSearchedUser = async (req, res,next) => {
+    try {
+        let params = req.body || '';
+        let searchParam = params.search;
+        let filter = {};
+        if (searchParam) {
+            filter.$or = [
+                { client_code: { $regex: searchParam, $options: 'i' } }, // i option for case-insensitive search
+                { client_name: { $regex: searchParam, $options: 'i' } }
+            ];
+        }
 
+        let AllSearchedUser = await usermodel.find(filter);
+        return res.status(200).json(AllSearchedUser)
+        //return { status: true, statusCode: 200, error: false, data: AllSearchedUser };
+    }
+    catch (error) {
+        console.log(error);
+        next(error)
+    }
+};
 exports.Login = async (req, res) => {
     let {Email,Password}=req.body;
     const user  = await usermodel.find({Email});

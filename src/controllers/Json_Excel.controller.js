@@ -17,7 +17,7 @@ exports.ConvertTOJson = async (req, res) => {
      const xls = json2xls(jsonData);
      res.setHeader('Content-Type', 'application/vnd.openxmlformats');
      res.setHeader('Content-Disposition', 'attachment; filename=data.xlsx');
-     res.send(xls);
+     res.status(200).send(xls);
     } catch (error) {
         console.log(error);
     }

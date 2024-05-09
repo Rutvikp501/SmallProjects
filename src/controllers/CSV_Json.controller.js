@@ -43,16 +43,14 @@ exports.fileupload = async (req, res, next) => {
 
 exports.CSV_Json = async (req, res, next) => {
     try {
-        if (!req.file) {
-            return res.status(400).send('No file uploaded.');
-        }
         const results = [];
         const bufferString = req.file.buffer.toString(); // Convert buffer to string
+
         streamifier.createReadStream(bufferString)
             .pipe(csvParser())
             .on('data', (data) => results.push(data))
             .on('end', () => {
-                res.json(results);
+                res.status(200).json(results);
             });
         
         // Example end

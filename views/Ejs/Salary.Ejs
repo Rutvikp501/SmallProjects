@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Calculator</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .calculator {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        button{
+            display: block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        input {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+}
+
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+        /* .calculator {
+            border-radius: 16px;
+  box-shadow: 0 30px 30px -25px rgba(0, 38, 255, 0.205);
+  padding: 10px;
+  background-color: #91dcff;
+  color: #697e91;
+  max-width: 300px;
+    margin: 0 auto;
+} */
+
+/* input[type="number"], button {
+    margin-bottom: 10px;
+} */
+
+    </style>
+</head>
+<body>
+    <h2>Salary Calculator</h2>
+    <div class="calculator">
+        <!-- <label for="currentSalary">Current Salary:</label> -->
+        <input type="number" id="currentSalary" placeholder="Enter current salary"><br><br>
+        <!-- <label for="hikePercentage">Hike Percentage:</label> -->
+        <input type="number" id="hikePercentage" placeholder="Enter hike percentage"><br><br>
+        <button onclick="calculateNewSalary()">Calculate New Salary</button><br><br>
+        <label for="newSalary">New Salary:</label>
+        <span id="newSalary"></span><br><br>
+        
+        <!-- <label for="currentSalary">Current Salary:</label> -->
+        <input type="number" id="currentSalary1" placeholder="Enter current salary"><br><br>
+        <!-- <label for="newSalary">New Salary:</label> -->
+        <input type="number" id="newSalaryInput" placeholder="Enter new salary"><br><br>
+        <button onclick="calculateHikePercentage()">Calculate Hike Percentage</button><br><br>
+        <label for="hikePercentageResult">Hike Percentage:</label>
+        <span id="hikePercentageResult"></span>
+    </div>
+
+    <script >
+        async function calculateNewSalary() {
+    const currentSalary = parseFloat(document.getElementById('currentSalary').value);
+    const hikePercentage = parseFloat(document.getElementById('hikePercentage').value);
+
+    const response = await fetch('/salary/calculateNewSalary', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            currentSalary: currentSalary,
+            hikePercentage: hikePercentage
+        })
+    });
+
+    const data = await response.json();
+    document.getElementById('newSalary').textContent = data;
+}
+
+async function calculateHikePercentage() {
+    const currentSalary = parseFloat(document.getElementById('currentSalary1').value);
+    const newSalary = parseFloat(document.getElementById('newSalaryInput').value);
+
+    const response = await fetch('/salary/calculateHikePercentage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            currentSalary: currentSalary,
+            newSalary: newSalary
+        })
+    });
+
+    const data = await response.json();
+    document.getElementById('hikePercentageResult').textContent = data + "%";
+}
+
+    </script>
+</body>
+</html>

@@ -15,7 +15,7 @@ exports.get_all_URLs = async (req, res) => {
 exports.create_url = async (req, res) => {
     console.log("HERE",typeof(req.body.url));
     const origUrl = req.body.url; // Directly assign req.body.url to origUrl
-    const base = `http://localhost:5011`;
+    const base = `https://smallprojects.onrender.com`;
     try {
       let url = await Url.findOne({ origUrl });
       if (url) {

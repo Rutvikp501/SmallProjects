@@ -188,7 +188,27 @@ exports.insertProductData = async (req, res, next) => {
                     }
                 }
             }
-            res.send(`${result} competition products processed`);
+
+            let dataFound = false; // Flag to track if any data is found
+
+            for (let i = 0; i < result.length; i++) {
+                const subArray = result[i];
+                for (let j = 0; j < subArray.length; j++) {
+                    const innerArray = subArray[j];
+                    for (let k = 0; k < innerArray.length; k++) {
+                        const deepestArray = innerArray[k];
+                        if (deepestArray.length > 0) {
+                            dataFound = true;
+                            res.status(200).send( {status: true, statusCode: 200,result:result});
+                        }
+                    }
+                }
+            }
+            
+            if (!dataFound) {
+                res.status(200).send( {status: true, statusCode: 200,result:"Data already present in the database"});
+            }
+            
         } catch (err) {
             console.error('Error:', err);
             res.status(500).send('Internal Server Error');

@@ -33,7 +33,24 @@ exports.GetSearchedUser = async (req, res,next) => {
             ];
         }
 
-        let AllSearchedUser = await usermodel.find(filter);
+        //let AllSearchedUser = await usermodel.find(filter);
+        let AllSearchedUser = await usermodel.aggregate([
+            { $match: filter },
+            {
+                $addFields: {
+                    name: { $concat: ["$Name", " - ", "$Email"] },
+                    value: "$Name"
+                }
+            },
+            { $unset: ["Name", "Email"] }, // Remove original fields if needed
+            {
+                $project: {
+                    _id: 0,
+                    value:1,
+                    name: 1 // Include only the value field
+                }
+            }
+        ]);
         return res.status(200).json(AllSearchedUser)
         //return { status: true, statusCode: 200, error: false, data: AllSearchedUser };
     }

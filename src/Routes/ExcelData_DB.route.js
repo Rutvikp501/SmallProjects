@@ -8,6 +8,7 @@ router.get('/showallExcelData',Product.ShowAllExcelData)
 router.get('/fileupload',Product.fileupload)
 
 router.post('/insertExcelData',Product.insertProductData)
+//router.post('/payout',Product.Payout)
 
 
 module.exports = router;

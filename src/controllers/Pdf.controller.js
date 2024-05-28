@@ -2,7 +2,7 @@
 const PdfPrinter = require('pdfmake');
 const fs = require('fs');
 const path = require("path");
-const generatePDF = require("../Util/Pdf.util");
+const {create_document} = require("../Util/Pdf.util");
 const { sendFileMailer,sendFile } = require('../Util/Mail.util');
 
 exports.PDF_Creation = async(req, res, next) => {
@@ -200,3 +200,50 @@ exports.PDF_Mail = async (req, res) => {
     }
 };
 
+exports.Formated_PDF_Mail = async (req, res, next) => {
+  try {
+          let doc = await create_document();
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', `inline; filename=Formated_PDF_Mail.pdf`);
+    doc.pipe(res);
+             doc.end();
+          if (res) {
+              return res.contentType('application/pdf').send(res);
+          }
+
+  }
+  catch (error) {
+      console.error(error);
+      next(error);
+  }
+}
+
+exports.Reliving = async (req, res, next) => {
+  try {
+      let mobile_number =req.session.mobile_number|| "8591575651";
+      let document_name = req.body.document_name
+      let user_type = req.body.register_type||"user"
+      let segment_type = req.body.segment_name || "BSE"
+      let user_details = await user_query.get_profile_details(mobile_number);
+      if (user_details.status == true) {
+          //console.log(document_name,user_type, user_details,segment_type);
+          let doc = await document_helper.create_document(document_name,user_type, user_details,segment_type);
+          res.setHeader('Content-Type', 'application/pdf');
+          res.setHeader('Content-Disposition', `inline; filename=${segment_type +'_'+ document_name}.pdf`);
+          // doc.pipe(res);
+          // doc.end();
+          let pdf_buffer_res = await pfx_signature.pfx_signature(doc);
+          if (res) {
+              return res.contentType('application/pdf').send(pdf_buffer_res);
+          }
+          return res.status(user_details.status_code).json({ message: "Something is wrong." });
+      }
+      else {
+          return res.status(user_details.status_code).json(user_details);
+      }
+  }
+  catch (error) {
+      console.error(error);
+      next(error);
+  }
+}

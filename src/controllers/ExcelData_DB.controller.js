@@ -1,5 +1,6 @@
 
 const Productmodel = require("../models/Product.model");
+const payoutbackups = require("../models/payoutbackups");
 const XLSX = require('xlsx');
 
 const multer = require('multer');
@@ -125,7 +126,7 @@ exports.insertProductData1 = async (req, res, next) => {
 };
 
 
-exports.insertProductData = async (req, res, next) => {
+exports.insertProductDatamain = async (req, res, next) => {
     upload(req, res, async (err) => {
         if (err) {
             console.error('Error uploading file:', err);
@@ -216,3 +217,51 @@ exports.insertProductData = async (req, res, next) => {
 
     });
 };
+exports.insertProductData = async (req, res, next) => {
+    upload(req, res, async (err) => {
+        if (err) {
+            console.error('Error uploading file:', err);
+            return res.status(500).send('Internal Server Error');
+        }
+        const Data = req;
+        try {
+            const workbook = XLSX.read(req.file.buffer);
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            const tabularData = XLSX.utils.sheet_to_json(sheet);
+console.log(tabularData);
+            
+            // Function to check if a document already exists in the database
+            const isDuplicateEntry = async (clientcode, competitionProduct) => {
+                const existingEntry = await payoutbackups.findOne({ clientcode: clientcode, Competition_Product: competitionProduct });
+                return !!existingEntry; // Returns true if a matching document is found
+            };
+            
+            for (const entry of tabularData) {
+                const Product = new Productmodel({
+                    clientcode: entry['Code'],
+                    clientname: entry['Particulars'],
+                    amount: entry.Paid,
+                    createdAt: entry.Date,
+                });
+                console.log(Product);
+                //await Product.save();
+            }
+            
+
+   
+
+                
+
+            
+            res.status(200).send( {status: true, statusCode: 200,result:result});
+
+            
+        } catch (err) {
+            console.error('Error:', err);
+            res.status(500).send('Internal Server Error');
+        }
+
+    });
+};
+

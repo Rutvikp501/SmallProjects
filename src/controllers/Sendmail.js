@@ -22,6 +22,7 @@ exports.Profile_Contact = async (req, res) => {
         res.send(`error whlile sending message..`, error)
     }
 };
+
 exports.YES_NO = async (req, res) => {
     let EmailData = req.body;
     console.log(EmailData);

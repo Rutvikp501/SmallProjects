@@ -87,34 +87,7 @@ exports.create_document = async () => {
                   marginTop: 25,
                   marginBottom: 10
                 },
-                {
-                  text: [
-                    {
-                      text: `Ref: ______________________`,
-                      alignment: "left",
-    
-                    },
-                    {
-                      text: `Date: _______________`,
-                      alignment: "right",
-                    },
-    
-                  ], bold: true,
-                  marginBottom: 10
-                },
-                // {
-                //   text: `Ref: ______________________`,
-                //   alignment: "left",
-                //   bold: true,
-                //   marginBottom: 0
-                // },
-                // {
-                //   text: `Date: _______________`,
-                //   alignment: "right",
-                //   bold: true,
-                //   marginBottom: 0
-                // },
-    
+
                 {
                   text: [
                     "Undertaking to be submitted in case of ",
@@ -130,63 +103,8 @@ exports.create_document = async () => {
                   marginTop: 25,
                   marginBottom: 10
                 },
-                {
-                  text: "To",
-                  alignment: "left",
-                  marginBottom: 0
-                },
-                {
-                  text: `Membership Department
-              National Stock Exchange of India Ltd
-              Exchange Plaza, BKC
-              Mumbai
-              `,
-                  alignment: "left",
-                  marginBottom: 10,
-                  bold: true
-    
-                },
-                {
-                  text: "Dear Sir/Madam",
-                  alignment: "left",
-                  marginBottom: 0
-                },
-                {
-                  text: "We hereby confirm that:",
-                  alignment: "left",
-                  marginBottom: 0
-                },
-    
-                {
-                  ol: [
-    
-                    {
-                      text: `	We will not pursue any activity under sub broker registration from the date of receipt of Authorized Person Approval and application for cancellation of sub-broker has already been submitted to the Exchange along with application for appointment of Authorized Person.`,
-                      marginBottom: 14,
-                      listType: "bullet",
-                    },
-                    {
-                      text: `	No complaint/ arbitration/disciplinary proceeding/investigation/inquiry is pending against the sub-broker with the exchange. There is no liability in any form against any of our clients by the sub broker.`,
-                      marginBottom: 14,
-                      listType: "bullet",
-                    },
-                    {
-                      text: `	In case future liability if any arises, the same would be settled by us.`,
-                      marginBottom: 14,
-                      listType: "bullet",
-                    },
-                    {
-                      text: `	As on date of application, the sub-broker has paid fees as per Schedule III (II) of the Regulations, along with interest, if any till the date on which the exchange has de-recognized the sub broker. `,
-                      marginBottom: 14,
-                      listType: "bullet",
-                    },
-                    {
-                      text: `	In case of non-compliance of aforesaid provisions, I/ we shall be liable for all actions as deemed by the Exchange/ SEBI.`,
-                      marginBottom: 14,
-                      listType: "bullet",
-                    },
-                  ]
-                },
+
+ 
     
                 {
                   text: "Thanking you,",

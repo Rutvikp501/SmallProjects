@@ -56,6 +56,9 @@ app.use('/csv_json',require('./src/Routes/CSV_Json.route'));
 app.use('/excel_Data',require('./src/Routes/ExcelData_DB.route'));
 app.use('/json_excel',require('./src/Routes/Json_Excel.route'));
 
+
+app.use('/test',require('./src/Routes/test'));
+
 // startJobs()
 // specific_times()
 

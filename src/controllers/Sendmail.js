@@ -3,6 +3,7 @@ const { sendMailer, Profile_Contact, YES_NO } = require("../Util/Mail.util");
 
 exports.send_File = async (req, res) => {
     let EmailData = req.body;
+    console.log(EmailData);
     try {
         await sendMailer(EmailData);
         res.status(200).send(`mail sucessfully sent to ${EmailData.To}`);

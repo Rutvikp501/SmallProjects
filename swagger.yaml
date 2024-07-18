@@ -343,6 +343,8 @@ paths:
         '400':
           description: Bad Request
 
+  
+
   /salary/calculateNewSalary:
     post:
       tags:

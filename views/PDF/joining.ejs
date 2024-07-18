@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF with Header and Footer</title>
+    <style>
+        /* Add some padding/margin at the top and bottom for the header and footer */
+        * {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        .content {
+            margin-top: 100px;
+            /* Adjust this value as needed */
+            margin-bottom: 100px;
+            /* Adjust this value as needed */
+        }
+
+        table {
+            width:  100%;
+            border-collapse: collapse;
+        }
+        table tr th{
+            border-bottom: 1px solid #00000070;
+        }
+        table tr td{
+            border-bottom: 0.5px solid #00000021;
+            font-weight: 500;
+        }
+
+        .table-head th {
+            font-size: 15px;
+            padding: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            color: #616161;
+        }
+
+        .table-content td {
+            font-size: 14px;
+            padding: 8px;
+            text-align: center;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            color: #161616;
+        }
+
+        .page-break {
+            page-break-before: always;
+            ;
+        }
+        .totalTr td{
+            color: #D24D1F;
+        }
+        .chartBox {
+        width: 400px;
+      }
+      .chartDiv{
+        display: flex;
+        gap: 1rem;
+      }
+    </style>
+</head>
+
+<body>
+    <div style="width: 100vw;display: flex;flex-direction: column; position: relative;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -200%);font-size: 2rem;display: flex;flex-direction: column;justify-content: center;">
+            <h1 style="margin: 0;text-align: center;">Portfolio Report</h1>
+            <p style="margin: 0;text-align: center;opacity: 0.7;font-size: 1.5rem;"> Client Code : <%- empdetails?.name %></p>
+            <p style="margin: 0;text-align: center;opacity: 0.7;font-size: 1.5rem;">Client Name : <%- empdetails?.position %></p>
+        </div>
+        <div style="margin-top: 30%;width: 100%;display: flex;justify-content: space-between; align-items: center;font-size: 1.2rem;">
+            <div style="display: flex;flex-direction: column;align-items: flex-start; gap: 1rem;">
+            <div style="display: flex; gap: 1rem;align-items: center;">
+                <h3 style="margin: 0;color: #124f89;">Date :</h3>
+                <p style="margin: 0;opacity: 0.7;"><%- empdetails?.joiningdate %></p>
+            </div>
+            <div style="display: flex;flex-direction: column; gap: 0.5rem;">
+                <h3 style="margin: 0;color: #124f89;">Contact Us :</h3>
+                <p style="margin: 0;opacity: 0.7;">+91 9321714143</p>
+            </div>
+            <div style="display: flex;flex-direction: column; gap: 0.5rem;">
+                <h3 style="margin: 0;color: #124f89;">Office Address :</h3>
+                <p style="margin: 0;opacity: 0.7;">Office No. 915, "The Summit Business Bay", <br>
+                    Behind Guru Nanak Petrol Pump, Off. Andheri-Kurla Road, <br>
+                    Andheri (East), Mumbai 400 069</p>
+            </div>
+        </div>
+            <div style="">
+                <h3 style="margin: 0;color: #124f89;text-align: right;">INDEX</h3>
+                <p style="text-align: right;opacity: 0.7;">Global Summary</p>
+                <p style="text-align: right;opacity: 0.7;">Equity Realised Profit and loss</p>
+                <p style="text-align: right;opacity: 0.7;">Holding Statement</p>
+                <p style="text-align: right;opacity: 0.7;">Dividend Statement</p>
+                <p style="text-align: right;opacity: 0.7;">NSE - F&O</p>
+                <p style="text-align: right;opacity: 0.7;">BSE - F&O</p>
+                <p style="text-align: right;opacity: 0.7;">NSE - Currency</p>
+                <p style="text-align: right;opacity: 0.7;">MCX - Commodity</p>
+                <p style="text-align: right;opacity: 0.7;">Disclaimer</p>
+            </div>
+        </div>
+    </div>
+    
+    </body>    
+    </html>

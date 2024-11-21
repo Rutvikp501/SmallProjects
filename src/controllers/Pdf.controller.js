@@ -224,12 +224,12 @@ exports.Formated_PDF_Mail = async (req, res, next) => {
 exports.Reliving = async (req, res, next) => {
   let empdetails = req.body;
   try {
-    const logo = path.join(__dirname, '../assets/Logo/black-logo-transparent.png');
+    const logo = path.join(__dirname, '../assets/gainn_logo.jpg');
     const header = path.join(__dirname, '../assets/Logo/header.png');
     const gainnImage = read_image(header)
 
-    const cpn_name = "Gainn Fintech Private Limited";
-    const GAINNAdd = `915, Omkar the Summit Business Bay,Behind Gurunanak Petrol Pump,Andheri Kurla Road, Andher (E),Mumbai - 400 069`
+    const cpn_name = "GAINN FINTECH PRIVATE LIMITED.";
+    const GAINNAdd = `915, SUMMIT BUSINESS BAY,BEHIND GURUNANAK PETROL PUMP,OFF ANDHERI KURLA ROAD, ANDHERI EAST,MUMBAI - 400069.`
     const fonts = {
       Roboto: {
         normal: 'node_modules/roboto-font/fonts/Roboto/roboto-regular-webfont.ttf',
@@ -305,25 +305,38 @@ exports.Reliving = async (req, res, next) => {
             marginTop: 30,
             marginBottom: 10
           },
+          // {
+          //   text: 'From:',
+          //   alignment: 'left',
+          //   fontSize: 10,
+          //   bold: true,
+          //   marginBottom: 5,
+          // },
           {
-            text: `Date: ${empdetails.mailrecivedate}`,
-            alignment: "left",
-           fontSize: 10,
-            marginBottom: 10
-          },
-          {
-            text: "To,",
-            alignment: "left",
-           fontSize: 10,
-            marginBottom: 10
-          },
-          {
-            text: `${empdetails.name} \n${empdetails.add}`,
-            alignment: "left",
+            text: `GAINN FINTECH PRIVATE LIMITED\n915, SUMMIT BUSINESS BAY,\nBEHIND GURUNANAK PETROL PUMP,\nOFF ANDHERI KURLA ROAD, ANDHERI EAST,\nMUMBAI - 400069.\n${empdetails.mailrecivedate}`,
+            alignment: 'left',
             fontSize: 10,
-            margin: [4, 0, 300, 10] 
-
+            marginBottom: 20,
           },
+          // {
+          //   text: `Date: ${empdetails.mailrecivedate}`,
+          //   alignment: 'right',
+          //   fontSize: 10,
+          //   marginBottom: 10,
+          // },
+          // {
+          //   text: 'To:',
+          //   alignment: 'left',
+          //   fontSize: 10,
+          //   bold: true,
+          //   marginBottom: 5,
+          // },
+          // {
+          //   text: `${empdetails.name}\n${empdetails.add}`,
+          //   alignment: 'left',
+          //   fontSize: 10,
+          //   marginBottom: 20,
+          // },
 
           {
             text: `Sub: Letter of Appointment`,
@@ -334,7 +347,8 @@ exports.Reliving = async (req, res, next) => {
           },
 
           {
-            text: `Dear  ${empdetails.name.split(' ')[0]}`,
+            text: `Dear  ${empdetails.name} .`,
+            // text: `Dear  ${empdetails.name.split(' ')[0]} .`,
            fontSize: 10,
            alignment: "left",
             marginBottom: 20
@@ -351,8 +365,9 @@ exports.Reliving = async (req, res, next) => {
                 text: `${empdetails.joiningdate}`,
                 bold: true
               },
+              " under the following terms ."
             ],
-            alignment: "center",
+            alignment: "left",
            fontSize: 11,
             marginBottom: 20,
           },
@@ -743,29 +758,36 @@ effective performance and results.`,
             marginBottom: 15
           },
           {
-            text: "Yours truly,",
-            alignment: "left",
-           fontSize: 11,
-            marginBottom: 15
+            text: 'Best Regards,',
+            alignment: 'left',
+            fontSize: 10,
+            bold: true,
+            marginBottom: 5,
           },
           {
-            text: `For ${cpn_name}`,
-            alignment: "left",
-           fontSize: 11,
-            marginBottom: 20
+            image: logo, // Referencing the logo by key
+            width: 100, // Adjust width as needed
+            alignment: 'left',
+            marginBottom: 10,
           },
           {
-            text: "To,",
-            alignment: "left",
-           fontSize: 11,
-            marginBottom: 20
+            text: `GAINN FINTECH PRIVATE LIMITED\n915, SUMMIT BUSINESS BAY,\nBEHIND GURUNANAK PETROL PUMP,\nOFF ANDHERI KURLA ROAD, ANDHERI EAST,\nMUMBAI - 400069.`,
+            alignment: 'left',
+            fontSize: 10,
+            marginBottom: 20,
           },
-          {
-            text: "AUTHORIZED SIGNATORY",
-            alignment: "left",
-           fontSize: 11,
-            marginBottom: 20
-          },
+          // {
+          //   text: "To,",
+          //   alignment: "left",
+          //  fontSize: 11,
+          //   marginBottom: 20
+          // },
+          // {
+          //   text: "AUTHORIZED SIGNATORY",
+          //   alignment: "left",
+          //  fontSize: 11,
+          //   marginBottom: 20
+          // },
 
         ],
         pageMargins: [60, 60, 60, 60]

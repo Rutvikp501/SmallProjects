@@ -397,6 +397,7 @@ const create_document  = async () => {
     throw new Error('Error generating PDF');
   }
 }
+
 const create_Reliving_document = async (document_name) => {
   
   try {

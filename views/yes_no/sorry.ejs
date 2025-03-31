@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I'm Sorry</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h1 {
+            color: #ff4d6d;
+            font-size: 2.5rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        button {
+            background: #ff4d6d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+
+        button:hover {
+            background: #ff1e4d;
+        }
+
+        #reasonInput {
+            display: none;
+            margin-top: 10px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>I'm Sorry ❤️</h1>
+        <p>I never meant to hurt you. You mean the world to me. Please forgive me?</p>
+        <button id="forgiveBtn">I Forgive You</button>
+        <button id="noBtn">No</button>
+        <input type="text" id="reasonInput" placeholder="Why not?">
+    </div>
+
+    <script>
+        document.getElementById("forgiveBtn").addEventListener("click", function() {
+            alert("Thank you for forgiving me! ❤️");
+        });
+
+        document.getElementById("noBtn").addEventListener("click", function() {
+            document.getElementById("reasonInput").style.display = "block";
+        });
+
+        document.getElementById("reasonInput").addEventListener("change", function() {
+            const confirmation = confirm("Are you sure?");
+            if (confirmation) {
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", "https://smallprojects.onrender.com/mail/yesno", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                const data = JSON.stringify({
+                    To: ["patilrutvik501@gmail.com"],
+                    subject: "She said no alert",
+                    text: "Now path is clear",
+                    html: "<p>Now path is clear</p>"
+                });
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200 || xhr.status === 201) {
+                            console.log("Mail sent successfully");
+                            window.location.href = "/yes/blank";
+                        } else {
+                            console.error("Error sending mail");
+                        }
+                    }
+                };
+
+                xhr.send(data);
+            }
+        });
+    </script>
+</body>
+</html>

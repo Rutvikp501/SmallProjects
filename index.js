@@ -46,6 +46,7 @@ app.get('/resume',(req,res,next)=>{
 
 app.use('/heart',require('./src/Routes/heart.route'));
 app.use('/yes',require('./src/Routes/yes_no.route'));
+app.use('/sorry',require('./src/Routes/sorry.route'));
 app.use('/mail',require('./src/Routes/mail.route'));
 app.use('/url',require('./src/Routes/url.route'));
 app.use('/user',require('./src/Routes/user.route'));
